@@ -1,0 +1,55 @@
+/* Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* This ensures vertical centering */
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navigation {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+.github-link,
+.sign-in-button,
+.sign-out-button {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 16px; /* Adjust padding as needed */
+  border-radius: 4px;
+  line-height: 1; /* This ensures that the text aligns properly if it's on multiple lines */
+  display: flex; /* Use flexbox for buttons */
+  align-items: center; /* Center button text vertically */
+  justify-content: center; /* Center button text horizontally */
+}
+
+.sign-in-button {
+  background-color: #555;
+  border: 1px solid #666;
+}
+
+.sign-in-button:hover,
+.sign-out-button:hover {
+  background-color: #666;
+}
+
+.account-name {
+  color: white;
+  margin-right: 10px; /* Or adjust as needed for spacing */
+  line-height: 1; /* Align the text properly */
+}
+
+/* You might want to adjust the height of the header and the font-size, padding of elements inside it to better fit your design */

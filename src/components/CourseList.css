@@ -1,0 +1,43 @@
+/* CourseList.css */
+.course-list {
+    padding: 20px;
+    background-color: #333; /* Same as the header */
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Spacing between rows */
+  }
+  
+  .row input[type="text"] {
+    margin-right: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #666;
+    color: white;
+    background-color: #555;
+  }
+  
+  .row label {
+    margin-right: 20px;
+    color: white;
+  }
+  
+  .row input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #666;
+  }
+  
