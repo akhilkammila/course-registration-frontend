@@ -12,9 +12,9 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ isSignedIn, accountName, onSignIn, onSignOut }) => {
   return (
     <header className="header">
-      <div className="logo">GT Scheduler</div>
+      <div className="logo">GT Registration</div>
       <nav className="navigation">
-        <a href="https://github.com/your-repository" target="_blank" rel="noopener noreferrer" className="github-link">
+        <a href="https://github.com/akhilkammila/course-registration-frontend" target="_blank" rel="noopener noreferrer" className="github-link">
           GitHub
         </a>
         {isSignedIn ? (

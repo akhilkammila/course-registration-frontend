@@ -22,8 +22,8 @@
     text-align: center;
   }
   
-  .sign-in-button,
-  .cancel-button {
+  .modal-sign-in-button,
+  .modal-cancel-button {
     margin-top: 10px;
     display: block;
     width: 80%;
@@ -32,7 +32,7 @@
     margin-right: auto;
   }
   
-  .cancel-button {
+  .modal-cancel-button {
     background-color: #f44336;
     color: white;
     /* Additional styles for cancel button */

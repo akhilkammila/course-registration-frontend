@@ -19,6 +19,11 @@ const CourseList: React.FC = () => {
     setRows([...rows, newRow]);
   };
 
+  const handleRemoveRow = (index: number) => {
+    const newRows = rows.filter((_, rowIndex) => rowIndex !== index);
+    setRows(newRows);
+  };
+
   const handleTextChange = (index: number, field: 'crn' | 'notes', value: string) => {
     const newRows = [...rows];
     newRows[index][field] = value;
@@ -29,6 +34,13 @@ const CourseList: React.FC = () => {
     const newRows = [...rows];
     newRows[index][field] = value;
     setRows(newRows);
+  };
+
+  const handleSave = () => {
+    // Implement your save logic here
+    // For demonstration, we're just logging the current state to the console
+    console.log('Saving rows:', rows);
+    // If saving to server, you would make an API call here
   };
 
   return (
@@ -63,9 +75,16 @@ const CourseList: React.FC = () => {
             />
             Open Notifications
           </label>
+          <button onClick={() => handleRemoveRow(index)} className="remove-row-button">
+            Remove
+          </button>
         </div>
       ))}
-      <button onClick={handleAddRow}>Add Row</button>
+      <div className="row-controls">
+        <button onClick={handleAddRow} className="add-row-button">Add Row</button>
+        <button onClick={handleSave} className="save-button">Save</button>
+      </div>
+      
     </div>
   );
 };
