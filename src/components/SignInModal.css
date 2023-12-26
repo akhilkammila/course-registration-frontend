@@ -20,23 +20,46 @@
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+
+    display: flex;
+    flex-direction: column; /* Align children vertically */
+    align-items: center; /* Center children horizontally */
   }
   
-  .modal-sign-in-button,
+  .modal-option-button,
+  .modal-submit-button,
   .modal-cancel-button {
-    margin-top: 10px;
-    display: block;
-    width: 80%;
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%; /* Set a width for the buttons */
+    padding: 12px 20px; /* Add padding for better touch targets */
+    margin-bottom: 10px; /* Add space between the buttons */
+    border: 1px solid #ccc; /* Optional border */
+    border-radius: 4px; /* Rounded corners for aesthetics */
+    background-color: #555; /* Button background color */
+    color: white; /* Text color */
+    cursor: pointer;
+    box-sizing: border-box; /* Include padding and border in the width and height */
+    text-align: center; /* Center text inside the buttons */
+  }
+  
+  .modal-submit-button {
+    background-color: #4CAF50; /* A distinct color for the submit button */
   }
   
   .modal-cancel-button {
-    background-color: #f44336;
-    color: white;
-    /* Additional styles for cancel button */
+    width: auto; /* Auto-width to only be as wide as its content */
+    margin-top: 20px; /* Space from the form or other buttons above */
+    background-color: red; /* Transparent background */
+    color: white; /* Text color */
   }
   
-  /* Add more styling as per your design requirements */
+  /* Style the text inputs */
+  input[type="email"],
+  input[type="password"] {
+    width: 80%; /* Match the button width */
+    padding: 10px; /* Padding for the input */
+    margin: 10px 0; /* Space between inputs */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the width and height */
+  }
   
