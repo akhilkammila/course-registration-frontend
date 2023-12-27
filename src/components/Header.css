@@ -19,9 +19,10 @@
 }
 
 .github-link,
+.account-name,
 .sign-in-button,
 .sign-out-button {
-  margin-left: 20px;
+  margin-left: 1cqb;
   text-decoration: none;
   color: white;
   background: none;

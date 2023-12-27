@@ -4,32 +4,86 @@ import './SignInModal.css';
 
 interface SignInModalProps {
   onClose: () => void;
+  onSignInSuccess: (email: string) => void;
 }
 
-const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
+const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess }) => {
   const [action, setAction] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const [feedback, setFeedback] = useState('');
+
+  const apiBaseUrl = 'http://127.0.0.1:5000';
+
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to handle sign in
-    console.log('Signing in with:', email, password);
-    onClose(); // Close the modal after action
+    try {
+      const response = await fetch(`${apiBaseUrl}/sign_in`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        onSignInSuccess(email);
+        setFeedback('Successfully signed in!')
+      }
+      else {
+        setFeedback('Incorrect email or password.');
+      }
+
+    } catch (error) {
+      setFeedback('An error occurred.');
+    }
   };
 
-  const handleCreateAccount = (e: React.FormEvent) => {
+  const handleCreateAccount = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to handle account creation
-    console.log('Creating account with:', email, password);
-    onClose();
+    try {
+      const response = await fetch(`${apiBaseUrl}/create_account`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setFeedback('Verification email sent. Click link, then log in.')
+      } else {
+        setFeedback('Account with email already exists.');
+      }
+
+    } catch (error) {
+      setFeedback('An error occurred.');
+    }
   };
 
-  const handleResetPassword = (e: React.FormEvent) => {
+  const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to handle password reset
-    console.log('Resetting password for:', email);
-    onClose();
+    try {
+      const response = await fetch(`${apiBaseUrl}/request_reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setFeedback('If account exists, reset email sent.')
+      } else {
+        setFeedback('Error occured.')
+      }
+    } catch (error) {
+      setFeedback('An error occured.')
+    }
   };
 
   const renderForm = () => {
@@ -76,6 +130,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         {renderForm()}
+        {feedback && <div className="modal-feedback">{feedback}</div>}
         <button onClick={onClose} className="modal-cancel-button">Cancel</button>
       </div>
     </div>

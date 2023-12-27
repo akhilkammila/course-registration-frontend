@@ -10,12 +10,17 @@ function App() {
   const [accountName, setAccountName] = useState('');
   const [showModal, setShowModal] = useState(false);
 
-  const handleSignInClick = () => {
+  const handleOpenModal = () => {
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleSignInSuccess = (email: string) => {
+    setAccountName(email);
+    setIsSignedIn(true); // Update the signed-in state
   };
 
   const handleSignOut = () => {
@@ -34,11 +39,11 @@ function App() {
       <Header
         isSignedIn={isSignedIn}
         accountName={accountName}
-        onSignIn={handleSignInClick}
+        onSignIn={handleOpenModal}
         onSignOut={handleSignOut}
       />
       <CourseList/>
-      {showModal && <SignInModal onClose={handleCloseModal} />}
+      {showModal && <SignInModal onClose={handleCloseModal} onSignInSuccess={handleSignInSuccess}/>}
     </div>
   );
 }
