@@ -33,7 +33,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess }) =
         setFeedback('Successfully signed in!')
       }
       else {
-        setFeedback('Incorrect email or password.');
+        setFeedback(data.message);
       }
 
     } catch (error) {
@@ -56,7 +56,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess }) =
       if (response.ok) {
         setFeedback('Verification email sent. Click link, then log in.')
       } else {
-        setFeedback('Account with email already exists.');
+        setFeedback(data.message);
       }
 
     } catch (error) {
@@ -76,11 +76,8 @@ const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess }) =
       });
       const data = await response.json();
 
-      if (response.ok) {
-        setFeedback('If account exists, reset email sent.')
-      } else {
-        setFeedback('Error occured.')
-      }
+      setFeedback(data.message);
+
     } catch (error) {
       setFeedback('An error occured.')
     }
