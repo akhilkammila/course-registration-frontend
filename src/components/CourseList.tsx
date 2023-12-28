@@ -2,6 +2,11 @@
 import React, { useState } from 'react';
 import './CourseList.css';
 
+interface CourseListProps {
+  isSignedIn: boolean;
+  accountName: string;
+}
+
 interface CourseRow {
   crn: string;
   notes: string;
@@ -9,7 +14,11 @@ interface CourseRow {
   open: boolean;
 }
 
-const CourseList: React.FC = () => {
+const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName}) => {
+  const apiBaseUrl = 'http://127.0.0.1:5000'
+
+  const [feedback, setFeedback] = useState('');
+
   const [rows, setRows] = useState<CourseRow[]>([
     { crn: '', notes: '', waitlist: false, open: false },
   ]);
@@ -36,11 +45,24 @@ const CourseList: React.FC = () => {
     setRows(newRows);
   };
 
-  const handleSave = () => {
-    // Implement your save logic here
-    // For demonstration, we're just logging the current state to the console
-    console.log('Saving rows:', rows);
-    // If saving to server, you would make an API call here
+  const handleSave = async() => {
+    const filteredRows = rows.filter(row => row.crn.trim() !== '');
+    console.log(filteredRows)
+
+    // Post call to send rows to server
+    try {
+      const response = await fetch(`${apiBaseUrl}/update_classes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ accountName, rows: filteredRows }),
+      });
+      const data = await response.json();
+      setFeedback(data.message);
+    } catch (error) {
+      setFeedback('An error has occured.')
+    }
   };
 
   return (
@@ -84,6 +106,7 @@ const CourseList: React.FC = () => {
         <button onClick={handleAddRow} className="add-row-button">Add Row</button>
         <button onClick={handleSave} className="save-button">Save</button>
       </div>
+      {feedback && <div className="courselist-feedback">{feedback}</div>}
       
     </div>
   );

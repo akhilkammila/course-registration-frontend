@@ -4,11 +4,6 @@ import Header from './Header';
 import SignInModal from './SignInModal'; // Import the modal component
 import CourseList from './CourseList'
 import './HomePage.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
 
 function HomePage() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -47,7 +42,10 @@ function HomePage() {
         onSignIn={handleOpenModal}
         onSignOut={handleSignOut}
       />
-      <CourseList/>
+      <CourseList
+        isSignedIn={isSignedIn}
+        accountName={accountName}
+      />
       {showModal && <SignInModal onClose={handleCloseModal} onSignInSuccess={handleSignInSuccess}/>}
     </div>
   );

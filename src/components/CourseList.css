@@ -98,3 +98,8 @@
   .save-button:hover {
     background-color: #388E3C; /* Darker green on hover */
   }
+
+  .courselist-feedback {
+    color: red;
+    margin-top: 10px; /* Space above the feedback message */
+  }
