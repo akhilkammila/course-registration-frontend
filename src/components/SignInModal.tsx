@@ -5,16 +5,15 @@ import './SignInModal.css';
 interface SignInModalProps {
   onClose: () => void;
   onSignInSuccess: (email: string) => void;
+  apiBaseUrl: string
 }
 
-const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess }) => {
+const SignInModal: React.FC<SignInModalProps> = ({ onClose, onSignInSuccess, apiBaseUrl }) => {
   const [action, setAction] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [feedback, setFeedback] = useState('');
-
-  const apiBaseUrl = 'http://127.0.0.1:5000';
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();

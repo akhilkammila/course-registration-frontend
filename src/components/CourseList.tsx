@@ -5,26 +5,25 @@ import './CourseList.css';
 interface CourseListProps {
   isSignedIn: boolean;
   accountName: string;
+  apiBaseUrl: string;
 }
 
 interface CourseRow {
   crn: string;
   notes: string;
-  waitlist: boolean;
-  open: boolean;
+  notifications: boolean;
 }
 
-const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName}) => {
-  const apiBaseUrl = 'http://127.0.0.1:5000'
+const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBaseUrl}) => {
 
   const [feedback, setFeedback] = useState('');
 
   const [rows, setRows] = useState<CourseRow[]>([
-    { crn: '', notes: '', waitlist: false, open: false },
+    { crn: '', notes: '', notifications: false },
   ]);
 
   const handleAddRow = () => {
-    const newRow: CourseRow = { crn: '', notes: '', waitlist: false, open: false };
+    const newRow: CourseRow = { crn: '', notes: '', notifications: false };
     setRows([...rows, newRow]);
   };
 
@@ -39,7 +38,7 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName}) => {
     setRows(newRows);
   };
 
-  const handleCheckboxChange = (index: number, field: 'waitlist' | 'open', value: boolean) => {
+  const handleCheckboxChange = (index: number, field: 'notifications', value: boolean) => {
     const newRows = [...rows];
     newRows[index][field] = value;
     setRows(newRows);
@@ -84,18 +83,10 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName}) => {
           <label>
             <input
               type="checkbox"
-              checked={row.waitlist}
-              onChange={(e) => handleCheckboxChange(index, 'waitlist', e.target.checked)}
+              checked={row.notifications}
+              onChange={(e) => handleCheckboxChange(index, 'notifications', e.target.checked)}
             />
-            Waitlist Notifications
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={row.open}
-              onChange={(e) => handleCheckboxChange(index, 'open', e.target.checked)}
-            />
-            Open Notifications
+            Notifications
           </label>
           <button onClick={() => handleRemoveRow(index)} className="remove-row-button">
             Remove

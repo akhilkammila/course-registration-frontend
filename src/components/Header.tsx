@@ -9,7 +9,7 @@ interface HeaderProps {
   onSignOut: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isSignedIn, accountName, onSignIn, onSignOut }) => {
+const Header: React.FC<HeaderProps> = ({ isSignedIn, accountName, onSignIn, onSignOut}) => {
   return (
     <header className="header">
       <div className="logo">GT Registration</div>
