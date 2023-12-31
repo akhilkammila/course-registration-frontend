@@ -7,7 +7,6 @@ import './HomePage.css';
 
 function HomePage() {
   const apiBaseUrl = process.env.REACT_APP_API_URL as string
-  console.log(apiBaseUrl)
 
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [accountName, setAccountName] = useState('');
