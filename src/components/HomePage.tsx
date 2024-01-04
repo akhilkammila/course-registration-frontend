@@ -27,8 +27,8 @@ function HomePage() {
 
   const handleSignOut = () => {
     // Here you would handle the sign-out logic
-    setIsSignedIn(false);
     setAccountName('');
+    setIsSignedIn(false);
   };
 
   // You would have additional logic here for handling the actual sign-in

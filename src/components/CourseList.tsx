@@ -1,5 +1,5 @@
 // CourseList.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CourseList.css';
 
 interface CourseListProps {
@@ -15,12 +15,43 @@ interface CourseRow {
 }
 
 const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBaseUrl}) => {
+  useEffect(() => {
+    if (accountName != '') {
+      requestRows();
+    } else {
+        setRows([
+          { crn: '', notes: '', notifications: false },
+        ])
+    }
+  }, [accountName])
 
   const [feedback, setFeedback] = useState('');
 
   const [rows, setRows] = useState<CourseRow[]>([
     { crn: '', notes: '', notifications: false },
   ]);
+
+  const requestRows = async() => {
+    try {
+      const response = await fetch(`${apiBaseUrl}/get_user_rows`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ accountName: accountName }),
+      });
+
+      if (!response.ok) {
+        setFeedback('Failed to retrieve account data')
+      }
+
+      const jsonResponse = await response.json();
+      if (jsonResponse.length != 0) setRows(jsonResponse);
+
+    } catch (error) {
+      setFeedback('Failed to retrieve account data')
+    }
+  }
 
   const handleAddRow = () => {
     const newRow: CourseRow = { crn: '', notes: '', notifications: false };
@@ -45,8 +76,8 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBase
   };
 
   const handleSave = async() => {
-    const filteredRows = rows.filter(row => row.crn.trim() !== '');
-    console.log(filteredRows)
+    setFeedback('Updating classes...')
+    const filteredRows = rows.filter(row => typeof row.crn === 'string' && row.crn.trim() !== '');
 
     // Post call to send rows to server
     try {
