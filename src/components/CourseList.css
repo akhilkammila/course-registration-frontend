@@ -18,11 +18,13 @@
   }
   
   .row input[type="text"],
+  .row input[type="number"],
   .row input[type="checkbox"],
   .row label {
     margin: 0 10px; /* Spacing between items */
   }
   
+  .row input[type="number"],
   .row input[type="text"] {
     padding: 8px;
     border-radius: 4px;
@@ -30,7 +32,8 @@
     background-color: #555;
   }
   
-  .row input[type="text"][placeholder="Notes"] {
+  .row input[type="text"][placeholder="Notes"],
+  .row input[type="number"][placeholder="Notes"] {
     flex-grow: 3; /* Makes the notes input 3 times wider than other inputs */
   }
   

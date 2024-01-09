@@ -46,7 +46,14 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBase
       }
 
       const jsonResponse = await response.json();
-      if (jsonResponse.length != 0) setRows(jsonResponse);
+      if (jsonResponse.length != 0) {
+        const updatedRows = jsonResponse.map((courseRow: CourseRow) => ({
+          ...courseRow,
+          crn: courseRow.crn.toString(),
+        }));
+        setRows(updatedRows);
+      }
+      console.log(rows)
 
     } catch (error) {
       setFeedback('Failed to retrieve account data')
@@ -77,7 +84,9 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBase
 
   const handleSave = async() => {
     setFeedback('Updating classes...')
+    console.log(rows)
     const filteredRows = rows.filter(row => typeof row.crn === 'string' && row.crn.trim() !== '');
+    console.log(filteredRows)
 
     // Post call to send rows to server
     try {
@@ -100,7 +109,7 @@ const CourseList: React.FC<CourseListProps> = ({isSignedIn, accountName, apiBase
       {rows.map((row, index) => (
         <div key={index} className="row">
           <input
-            type="text"
+            type="number"
             placeholder="CRN"
             value={row.crn}
             onChange={(e) => handleTextChange(index, 'crn', e.target.value)}
